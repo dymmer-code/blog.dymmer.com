@@ -1,0 +1,5 @@
+/site/
+/tailwind-*
+/.DS_Store
+*.swp
+*~

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="<%= @language %>" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="<%= @lambdapad[:name] %> <%= @lambdapad[:vsn] %>">
+
+  <!-- Theme initialization before first paint to prevent flash -->
+  <script>
+    (function () {
+      try {
+        const stored = localStorage.getItem('dymmer-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = stored === 'dark' || (!stored && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+          if (!localStorage.getItem('dymmer-theme')) {
+            if (e.matches) {
+              document.documentElement.classList.add('dark');
+              document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+              document.documentElement.setAttribute('data-theme', 'light');
+            }
+          }
+        });
+      } catch (_) {}
+    })();
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const next = isDark ? 'light' : 'dark';
+      if (next === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      try {
+        localStorage.setItem('dymmer-theme', next);
+      } catch (_) {}
+    }
+  </script>
+
+  <%= if assigns[:post] do %>
+  <title><%= @post[:title] %> · <%= gettext("Dymmer Blog") %></title>
+  <meta name="title" content="<%= @post[:title] %> · <%= gettext("Dymmer Blog") %>">
+  <meta name="description" content="<%= @post[:_description] %>">
+  <%= if @post[:tags] do %><meta name="keywords" content="<%= @post[:tags] %>"><% end %>
+  <meta name="author" content="<%= if get_in(@post, [:_author, :name]), do: @post[:_author][:name], else: @post[:author] %>">
+  <link rel="canonical" href="https://blog.dymmer.com/<%= @language %>/posts/<%= @post[:id] %>">
+  <link rel="alternate" hreflang="<%= @language %>" href="https://blog.dymmer.com/<%= @language %>/posts/<%= @post[:id] %>">
+  <%= if @post[:alternate] do %>
+  <link rel="alternate" hreflang="<%= if @language in [:es, "es"], do: "en", else: "es" %>" href="https://blog.dymmer.com/<%= if @language in [:es, "es"], do: "en", else: "es" %>/posts/<%= @post[:alternate] %>">
+  <% end %>
+  <% else %>
+  <title><%= @blog[:title][@language] %></title>
+  <meta name="title" content="<%= @blog[:title][@language] %>">
+  <meta name="description" content="<%= @blog[:description][@language] %>">
+  <meta name="keywords" content="dymmer, domain, dns, web hosting, email, server management, altenwald, cloud">
+  <meta name="author" content="Dymmer">
+  <link rel="canonical" href="https://blog.dymmer.com/<%= @language %>/">
+  <link rel="alternate" hreflang="es" href="https://blog.dymmer.com/es/">
+  <link rel="alternate" hreflang="en" href="https://blog.dymmer.com/en/">
+  <% end %>
+
+  <meta name="robots" content="index, follow">
+  <meta name="distribution" content="global">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://blog.dymmer.com/sitemap.xml">
+
+  <!-- Favicons matching dymmer.com -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#070f1a" media="(prefers-color-scheme: dark)">
+
+  <!-- Google Fonts: Inter & JetBrains Mono matching dymmer.com -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <!-- Schema.org Microdata -->
+  <meta itemprop="name" content="<%= if assigns[:post], do: "#{@post[:title]} · #{gettext("Dymmer Blog")}", else: @blog[:title][@language] %>">
+  <meta itemprop="description" content="<%= if assigns[:post], do: @post[:_description], else: @blog[:description][@language] %>">
+  <meta itemprop="image" content="<%= if assigns[:post], do: "https://blog.dymmer.com/assets/og/#{@post[:id]}.png", else: "https://blog.dymmer.com/assets/images/dym_cover_512.png" %>">
+
+  <!-- Open Graph / Facebook / LinkedIn / Telegram -->
+  <meta property="og:type" content="<%= if assigns[:post], do: "article", else: "website" %>">
+  <meta property="og:site_name" content="<%= gettext("Dymmer Blog") %>">
+  <meta property="og:url" content="<%= if assigns[:post], do: "https://blog.dymmer.com/#{@language}/posts/#{@post[:id]}", else: "https://blog.dymmer.com/#{@language}/" %>">
+  <meta property="og:title" content="<%= if assigns[:post], do: "#{@post[:title]} · #{gettext("Dymmer Blog")}", else: @blog[:title][@language] %>">
+  <meta property="og:description" content="<%= if assigns[:post], do: @post[:_description], else: @blog[:description][@language] %>">
+  <meta property="og:image" content="<%= if assigns[:post], do: "https://blog.dymmer.com/assets/og/#{@post[:id]}.png", else: "https://blog.dymmer.com/assets/images/dym_cover_512.png" %>">
+  <meta property="og:image:secure_url" content="<%= if assigns[:post], do: "https://blog.dymmer.com/assets/og/#{@post[:id]}.png", else: "https://blog.dymmer.com/assets/images/dym_cover_512.png" %>">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="<%= if assigns[:post], do: @post[:title], else: @blog[:title][@language] %>">
+  <meta property="og:locale" content="<%= if @language in [:es, "es"], do: "es_ES", else: "en_US" %>">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@altenwald">
+  <meta name="twitter:creator" content="@altenwald">
+  <meta name="twitter:url" content="<%= if assigns[:post], do: "https://blog.dymmer.com/#{@language}/posts/#{@post[:id]}", else: "https://blog.dymmer.com/#{@language}/" %>">
+  <meta name="twitter:title" content="<%= if assigns[:post], do: "#{@post[:title]} · #{gettext("Dymmer Blog")}", else: @blog[:title][@language] %>">
+  <meta name="twitter:description" content="<%= if assigns[:post], do: @post[:_description], else: @blog[:description][@language] %>">
+  <meta name="twitter:image" content="<%= if assigns[:post], do: "https://blog.dymmer.com/assets/x/#{@post[:id]}.png", else: "https://blog.dymmer.com/assets/images/dym_cover_512.png" %>">
+  <meta name="twitter:image:alt" content="<%= if assigns[:post], do: @post[:title], else: @blog[:title][@language] %>">
+
+  <!-- JSON-LD Structured Data for Search Engines -->
+  <%= if assigns[:post] do %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "<%= @post[:title] %>",
+    "description": "<%= @post[:_description] %>",
+    "image": "https://blog.dymmer.com/assets/og/<%= @post[:id] %>.png",
+    "datePublished": "<%= @post[:date] %>",
+    <%= if @post[:updated] do %>"dateModified": "<%= @post[:updated] %>",<% end %>
+    "author": {
+      "@type": "Person",
+      "name": "<%= if get_in(@post, [:_author, :name]), do: @post[:_author][:name], else: @post[:author] %>"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Dymmer",
+      "url": "https://dymmer.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://blog.dymmer.com/assets/images/logo_light.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://blog.dymmer.com/<%= @language %>/posts/<%= @post[:id] %>"
+    }
+  }
+  </script>
+  <% else %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "<%= gettext("Dymmer Blog") %>",
+    "url": "https://blog.dymmer.com/<%= @language %>/",
+    "description": "<%= @blog[:description][@language] %>",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Dymmer",
+      "url": "https://dymmer.com"
+    }
+  }
+  </script>
+  <% end %>
+
+  <!-- Local Tailwind CSS generated by Lambdapad -->
+  <link rel="stylesheet" href="/css/app.css">
+
+  <!-- Highlight.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/github-dark.min.css">
+</head>

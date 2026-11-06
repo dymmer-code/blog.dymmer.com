@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://blog.dymmer.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://blog.dymmer.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://blog.dymmer.com/en/"/>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://blog.dymmer.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://blog.dymmer.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://blog.dymmer.com/en/"/>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <%= for post <- @posts do %>
+  <url>
+    <loc>https://blog.dymmer.com/<%= post[:language] || "es" %>/posts/<%= post[:id] %></loc>
+    <xhtml:link rel="alternate" hreflang="<%= post[:language] || "es" %>" href="https://blog.dymmer.com/<%= post[:language] || "es" %>/posts/<%= post[:id] %>"/>
+    <%= if post[:alternate] do %>
+    <xhtml:link rel="alternate" hreflang="<%= if (post[:language] || "es") == "es", do: "en", else: "es" %>" href="https://blog.dymmer.com/<%= if (post[:language] || "es") == "es", do: "en", else: "es" %>/posts/<%= post[:alternate] %>"/>
+    <% end %>
+    <%= if post[:updated] do %>
+    <lastmod><%= post[:updated] %></lastmod>
+    <% else %><%= if post[:date] do %>
+    <lastmod><%= post[:date] %></lastmod>
+    <% end %><% end %>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <% end %>
+</urlset>

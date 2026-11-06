@@ -1,0 +1,93 @@
+<%= render("head.html", assigns) %>
+<body class="min-h-screen flex flex-col bg-slate-50 dark:bg-[#070f1a] text-slate-900 dark:text-slate-100 antialiased selection:bg-brand-100 selection:text-brand-900 transition-colors">
+
+<%= render("header.html", assigns) %>
+
+  <!-- ========== HERO ========== -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-brand-900 via-brand-800 to-[#070f1a] text-white py-16 sm:py-20">
+    <div class="max-w-5xl mx-auto px-6 relative z-10 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-brand-100 text-xs font-semibold mb-4 backdrop-blur-sm">
+        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+        <span><%= gettext("News, Guides & Insights") %></span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+        Dymmer <span class="text-brand-300"><%= gettext("Blog") %></span>
+      </h1>
+      <p class="text-base sm:text-lg text-brand-100 max-w-2xl leading-relaxed">
+        <%= gettext("Articles, deep dives, and tips on domain registration, DNS management, and deploying web projects with confidence.") %>
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== POST LISTING ========== -->
+  <main class="flex-grow py-12 sm:py-16 max-w-5xl mx-auto px-6 w-full">
+    <%= if @posts != [] do %>
+    <div class="grid grid-cols-1 gap-8">
+      <%= for post <- @posts do %>
+      <article class="clean-card p-6 sm:p-8">
+        <div class="flex flex-wrap items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400 mb-3 font-medium">
+          <%= if post[:category] do %>
+          <span class="px-2.5 py-0.5 rounded-full font-semibold bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80">
+            <%= post[:category] %>
+          </span>
+          <% end %>
+          <span class="font-mono"><%= post[:date] %></span>
+          <%= if post[:reading_time] do %>
+          <span>&middot;</span>
+          <span><%= post[:reading_time] %> <%= gettext("min read") %></span>
+          <% end %>
+          <%= if post[:author] do %>
+          <span>&middot;</span>
+          <span><%= if get_in(post, [:_author, :name]), do: post[:_author][:name], else: post[:author] %></span>
+          <% end %>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors mb-3">
+          <a href="/<%= @language %>/posts/<%= post[:id] %>"><%= post[:title] %></a>
+        </h2>
+
+        <%= if post[:subtitle] do %>
+        <p class="text-sm sm:text-base font-medium text-slate-500 dark:text-slate-400 mb-4"><%= post[:subtitle] %></p>
+        <% end %>
+
+        <%= if post[:excerpt] do %>
+        <div class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+          <%= raw post[:excerpt] %>
+        </div>
+        <% else %>
+        <%= if post[:summary] do %>
+        <div class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+          <%= raw post[:summary] %>
+        </div>
+        <% end %>
+        <% end %>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <%= if post[:_tags] && post[:_tags] != [] do %>
+          <div class="flex flex-wrap gap-1.5">
+            <%= for tag <- post[:_tags] do %>
+            <span class="px-2.5 py-0.5 rounded-md text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">#<%= tag %></span>
+            <% end %>
+          </div>
+          <% else %>
+          <div></div>
+          <% end %>
+          <a href="/<%= @language %>/posts/<%= post[:id] %>" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 group transition-colors">
+            <span><%= gettext("Read article") %></span>
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      </article>
+      <% end %>
+    </div>
+    <% else %>
+    <div class="text-center py-20 clean-card p-12">
+      <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2"><%= gettext("No articles published yet") %></h3>
+      <p class="text-slate-500 dark:text-slate-400 text-sm"><%= gettext("Stay tuned, new guides and news are coming soon!") %></p>
+    </div>
+    <% end %>
+  </main>
+
+<%= render("footer.html", assigns) %>
+</body>
+</html>

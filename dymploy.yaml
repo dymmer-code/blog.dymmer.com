@@ -1,0 +1,23 @@
+# The site is generated with Lambdapad on every push to main and goes to the bucket that serves it (target
+# garage-blog-dymmer-com of the dymploy server): the pages after the files they refer to, nothing is deleted.
+version: 1
+
+build:
+  image:
+    dockerfile: ci/Dockerfile
+    context: ci
+  limits: {cpus: 2, memory: 4g, timeout: 10m}
+  steps:
+    - name: site
+      run: |
+        ./lpad clean
+        ./lpad
+        test -s site/index.html
+        test -s site/es/posts/como-evitar-que-el-correo-caiga-en-spam/index.html
+
+artifact:
+  name: blog-dymmer-com
+  paths: ["site/*"]
+
+deploy:
+  target: garage-blog-dymmer-com

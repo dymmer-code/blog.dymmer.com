@@ -1,0 +1,25 @@
+[blog]
+title.en = "Dymmer Blog — Domain, Web & Email Insights"
+title.es = "Blog de Dymmer — Novedades, Guías y Artículos"
+description.en = "Updates, guides, and engineering notes on domain registration, DNS management, and web services from Dymmer."
+description.es = "Novedades, guías y notas de ingeniería sobre registro de dominios, gestión DNS y servicios web de Dymmer."
+url = "https://blog.dymmer.com/"
+output_dir = "site"
+languages_path = "gettext"
+languages = ["es", "en"]
+
+[authors]
+
+[authors.manuel]
+shortname = "manuel"
+name = "Manuel Rubio"
+url = "https://altenwald.com"
+email = "manuel@altenwald.com"
+description = "Founder at Altenwald & Dymmer"
+
+[authors.dymmer]
+shortname = "dymmer"
+name = "Dymmer Team"
+url = "https://dymmer.com"
+email = "support@dymmer.com"
+description = "The Dymmer Engineering & Support Team"

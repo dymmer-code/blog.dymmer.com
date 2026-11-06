@@ -1,0 +1,168 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/footer.html.eex:26
+#, elixir-autogen, elixir-format
+msgid "About"
+msgstr "Acerca de"
+
+#: templates/post.html.eex:82
+#, elixir-autogen, elixir-format
+msgid "All articles"
+msgstr "Todos los artículos"
+
+#: templates/footer.html.eex:23
+#, elixir-autogen, elixir-format
+msgid "All rights reserved."
+msgstr "Todos los derechos reservados."
+
+#: templates/index.html.eex:17
+#: templates/index.html.eex:17
+#, elixir-autogen, elixir-format
+msgid "Articles, deep dives, and tips on domain registration, DNS management, and deploying web projects with confidence."
+msgstr "Artículos, análisis y consejos sobre registro de dominios, gestión DNS y despliegue de proyectos web con confianza."
+
+#: templates/post.html.eex:11
+#, elixir-autogen, elixir-format
+msgid "Back to all articles"
+msgstr "Volver a todos los artículos"
+
+#: templates/post.html.eex:85
+#, elixir-autogen, elixir-format
+msgid "Back to top"
+msgstr "Volver arriba"
+
+#: templates/footer.html.eex:32
+#: templates/header.html.eex:14
+#: templates/header.html.eex:54
+#: templates/index.html.eex:14
+#: templates/index.html.eex:14
+#, elixir-autogen, elixir-format
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/header.html.eex:10
+#, elixir-autogen, elixir-format
+msgid "Bundles"
+msgstr "Paquetes"
+
+#: templates/footer.html.eex:30
+#, elixir-autogen, elixir-format
+msgid "Cookie Policy"
+msgstr "Política de cookies"
+
+#: templates/footer.html.eex:11
+#, elixir-autogen, elixir-format
+msgid "Create your account"
+msgstr "Crea tu cuenta"
+
+#: templates/footer.html.eex:27
+#, elixir-autogen, elixir-format
+msgid "Help & Glossary"
+msgstr "Ayuda y glosario"
+
+#: templates/header.html.eex:12
+#, elixir-autogen, elixir-format
+msgid "How it works"
+msgstr "Cómo funciona"
+
+#: templates/header.html.eex:56
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+#: templates/index.html.eex:11
+#: templates/index.html.eex:11
+#, elixir-autogen, elixir-format
+msgid "News, Guides & Insights"
+msgstr "Novedades, Guías y Artículos"
+
+#: templates/index.html.eex:85
+#: templates/index.html.eex:85
+#, elixir-autogen, elixir-format
+msgid "No articles published yet"
+msgstr "Aún no hay artículos publicados"
+
+#: templates/footer.html.eex:29
+#, elixir-autogen, elixir-format
+msgid "Privacy Policy"
+msgstr "Política de privacidad"
+
+#: templates/header.html.eex:11
+#, elixir-autogen, elixir-format
+msgid "Projects"
+msgstr "Proyectos"
+
+#: templates/index.html.eex:76
+#: templates/index.html.eex:76
+#, elixir-autogen, elixir-format
+msgid "Read article"
+msgstr "Leer artículo"
+
+#: templates/footer.html.eex:5
+#, elixir-autogen, elixir-format
+msgid "Ready to get started?"
+msgstr "¿Listo para empezar?"
+
+#: templates/footer.html.eex:8
+#, elixir-autogen, elixir-format
+msgid "Register your domain and get everything you need to launch, with real human support when you need it."
+msgstr "Registra tu dominio y obtén todo lo que necesitas para lanzar tu proyecto, con soporte humano real cuando lo necesites."
+
+#: templates/header.html.eex:59
+#, elixir-autogen, elixir-format
+msgid "Sign up"
+msgstr "Regístrate"
+
+#: templates/index.html.eex:86
+#: templates/index.html.eex:86
+#, elixir-autogen, elixir-format
+msgid "Stay tuned, new guides and news are coming soon!"
+msgstr "¡Permanece atento, pronto publicaremos nuevas guías y novedades!"
+
+#: templates/footer.html.eex:28
+#, elixir-autogen, elixir-format
+msgid "Terms of Service"
+msgstr "Términos del servicio"
+
+#: templates/post.html.eex:71
+#, elixir-autogen, elixir-format
+msgid "Visit profile"
+msgstr "Ver perfil"
+
+#: templates/footer.html.eex:31
+#, elixir-autogen, elixir-format
+msgid "Withdraw from contract"
+msgstr "Desistir del contrato"
+
+#: templates/post.html.eex:63
+#, elixir-autogen, elixir-format
+msgid "Written by"
+msgstr "Escrito por"
+
+#: templates/head.html.eex:54
+#: templates/head.html.eex:55
+#: templates/head.html.eex:103
+#: templates/head.html.eex:109
+#: templates/head.html.eex:111
+#: templates/head.html.eex:126
+#: templates/head.html.eex:166
+#, elixir-autogen, elixir-format
+msgid "Dymmer Blog"
+msgstr "Blog de Dymmer"
+
+#: templates/index.html.eex:37
+#: templates/post.html.eex:26
+#, elixir-autogen, elixir-format
+msgid "min read"
+msgstr "min de lectura"
