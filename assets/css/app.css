@@ -81,17 +81,29 @@ code, pre {
 
 /* Article Prose */
 .article-prose {
+  --table-border: #d4e0ed;
+  --table-heading-bg: #eef4fb;
+  --table-heading-text: #173257;
+  --table-row-bg: #f8fafc;
   color: #334155;
   font-size: 1.0625rem;
   line-height: 1.8;
 }
 
 :is(.dark, [data-theme=dark]) .article-prose {
+  --table-border: #2b3d54;
+  --table-heading-bg: #12243b;
+  --table-heading-text: #d4e4f7;
+  --table-row-bg: #0c192b;
   color: #cbd5e1;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme=light]) .article-prose {
+    --table-border: #2b3d54;
+    --table-heading-bg: #12243b;
+    --table-heading-text: #d4e4f7;
+    --table-row-bg: #0c192b;
     color: #cbd5e1;
   }
 }
@@ -129,6 +141,52 @@ code, pre {
 
 .article-prose p {
   margin-bottom: 1.5rem;
+}
+
+/* Markdown tables retain their native table semantics and wrap within the article. */
+.article-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  border-block: 1px solid var(--table-border);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.article-prose :is(th, td) {
+  padding: 0.875rem 1rem;
+  text-align: start;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--table-border);
+}
+
+.article-prose th {
+  background: var(--table-heading-bg);
+  color: var(--table-heading-text);
+  font-weight: 600;
+}
+
+.article-prose tbody tr:nth-child(even) {
+  background: var(--table-row-bg);
+}
+
+.article-prose :is(th, td) > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .article-prose table {
+    table-layout: fixed;
+  }
+
+  .article-prose th:first-child:nth-last-child(2) {
+    width: 35%;
+  }
+
+  .article-prose :is(th, td) {
+    padding: 0.75rem 0.625rem;
+  }
 }
 
 .article-prose strong,
