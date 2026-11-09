@@ -19,7 +19,7 @@ We will follow the process using a fictional server, `demo-web`, and two system 
 
 You need a Dymmer account, permission to administer the host and a server prepared for client access. If you are linking it through the daemon, `dym` must be installed on the server; after pairing, its daemon must remain running.
 
-You also need **Dym Bridge 0.2.0 or later** on the computer you will use. Packages for macOS, Windows and Linux are available from the [official Dym Bridge releases](https://github.com/dymmer-code/dym-bridge/releases).
+You also need **Dym Bridge 0.2.0 or later** on the computer you will use. Packages for macOS, Windows and Linux are available from the [Dym Bridge page on Dymmer](https://dymmer.com/apps/dym-bridge).
 
 There are three parts to keep in mind:
 

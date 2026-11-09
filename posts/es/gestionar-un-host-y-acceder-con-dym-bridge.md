@@ -19,7 +19,7 @@ Vamos a recorrer el proceso con un servidor ficticio, `demo-web`, y dos usuarios
 
 Para seguir el recorrido necesitas una cuenta de Dymmer, permisos para administrar el host y un servidor preparado para el acceso de clientes. Si vas a vincularlo mediante el daemon, `dym` debe estar instalado en el servidor; después del emparejamiento, su daemon debe quedar ejecutándose.
 
-También necesitas **Dym Bridge 0.2.0 o posterior** en el ordenador desde el que trabajarás. Puedes descargar los paquetes para macOS, Windows y Linux en las [versiones oficiales de Dym Bridge](https://github.com/dymmer-code/dym-bridge/releases).
+También necesitas **Dym Bridge 0.2.0 o posterior** en el ordenador desde el que trabajarás. Puedes descargar los paquetes para macOS, Windows y Linux en la [página de Dym Bridge en Dymmer](https://dymmer.com/apps/dym-bridge).
 
 Conviene separar tres piezas:
 
