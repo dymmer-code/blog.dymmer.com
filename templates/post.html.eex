@@ -101,26 +101,49 @@
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: document.documentElement.classList.contains('dark') ? 'dark' : 'neutral',
-      fontFamily: 'Inter, system-ui, sans-serif'
-    });
-
-    document.querySelectorAll('pre > code.mermaid, pre > code.language-mermaid').forEach((codeEl) => {
-      const preEl = codeEl.parentElement;
-      const graphDefinition = codeEl.textContent;
+    // Keep the Markdown source: Mermaid replaces each container with an SVG.
+    const diagrams = Array.from(document.querySelectorAll('pre > code.mermaid, pre > code.language-mermaid'), (codeEl) => {
       const container = document.createElement('div');
+      const source = codeEl.textContent;
       container.className = 'mermaid my-6 flex justify-center';
-      container.textContent = graphDefinition;
-      preEl.parentNode.replaceChild(container, preEl);
+      codeEl.parentElement.replaceWith(container);
+      return { container, source };
     });
 
-    try {
-      await mermaid.run();
-    } catch (e) {
-      console.error('Mermaid run error:', e);
+    const currentTheme = () => document.documentElement.classList.contains('dark') ? 'dark' : 'neutral';
+    let renderedTheme;
+    let rendering = false;
+
+    async function renderDiagrams() {
+      if (rendering || diagrams.length === 0) return;
+      rendering = true;
+      try {
+        // Serialize renders, including theme changes made while Mermaid is busy.
+        do {
+          renderedTheme = currentTheme();
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: renderedTheme,
+            fontFamily: 'Inter, system-ui, sans-serif'
+          });
+          diagrams.forEach(({ container, source }) => {
+            container.removeAttribute('data-processed');
+            container.textContent = source;
+          });
+          await mermaid.run({ nodes: diagrams.map(({ container }) => container) });
+        } while (renderedTheme !== currentTheme());
+      } catch (e) {
+        console.error('Mermaid run error:', e);
+      } finally {
+        rendering = false;
+      }
     }
+
+    new MutationObserver(() => {
+      if (renderedTheme !== currentTheme()) renderDiagrams();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+
+    await renderDiagrams();
 
     hljs.highlightAll();
   </script>
