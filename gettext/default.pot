@@ -76,7 +76,7 @@ msgstr ""
 msgid "How it works"
 msgstr ""
 
-#: templates/header.html.eex:56
+#: templates/header.html.eex:59
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
@@ -119,7 +119,7 @@ msgstr ""
 msgid "Register your domain and get everything you need to launch, with real human support when you need it."
 msgstr ""
 
-#: templates/header.html.eex:59
+#: templates/header.html.eex:62
 #, elixir-autogen, elixir-format
 msgid "Sign up"
 msgstr ""
@@ -166,4 +166,9 @@ msgstr ""
 #: templates/post.html.eex:26
 #, elixir-autogen, elixir-format
 msgid "min read"
+msgstr ""
+
+#: templates/header.html.eex:56
+#, elixir-autogen, elixir-format
+msgid "Dashboard"
 msgstr ""

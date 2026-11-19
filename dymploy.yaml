@@ -13,6 +13,7 @@ build:
         ./lpad clean
         ./lpad
         test -s site/index.html
+        test -s site/js/app.js
         test -s site/es/posts/como-evitar-que-el-correo-caiga-en-spam/index.html
 
 artifact:

@@ -1,5 +1,6 @@
 /site/
 /tailwind-*
+/esbuild-*
 /.DS_Store
 *.swp
 *~

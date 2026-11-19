@@ -76,7 +76,7 @@ msgstr "Help & Glossary"
 msgid "How it works"
 msgstr "How it works"
 
-#: templates/header.html.eex:56
+#: templates/header.html.eex:59
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr "Log in"
@@ -119,7 +119,7 @@ msgstr "Ready to get started?"
 msgid "Register your domain and get everything you need to launch, with real human support when you need it."
 msgstr "Register your domain and get everything you need to launch, with real human support when you need it."
 
-#: templates/header.html.eex:59
+#: templates/header.html.eex:62
 #, elixir-autogen, elixir-format
 msgid "Sign up"
 msgstr "Sign up"
@@ -162,7 +162,13 @@ msgid "Dymmer Blog"
 msgstr "Dymmer Blog"
 
 #: templates/index.html.eex:37
+#: templates/index.html.eex:37
 #: templates/post.html.eex:26
 #, elixir-autogen, elixir-format
 msgid "min read"
 msgstr "min read"
+
+#: templates/header.html.eex:56
+#, elixir-autogen, elixir-format
+msgid "Dashboard"
+msgstr "Dashboard"

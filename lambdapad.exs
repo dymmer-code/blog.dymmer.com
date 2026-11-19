@@ -55,6 +55,19 @@ blog do
     ])
   end
 
+  assets "js" do
+    set(from: "assets/**/*.js")
+    set(to: "site/")
+    set(tool: :esbuild)
+    set(esbuild: [
+      path:
+        System.get_env("ESBUILD_PATH") ||
+          System.find_executable("esbuild") ||
+          Path.expand("esbuild-darwin-arm64"),
+      extra_args: ~w(--minify)
+    ])
+  end
+
   assets "general" do
     set(from: "assets/{favicon,images,og,x}/**")
     set(to: "site/assets")
