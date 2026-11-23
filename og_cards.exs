@@ -160,24 +160,23 @@ defmodule Dymmer.OgImage do
     |> String.replace(">", "&gt;")
   end
 
-  defp format_date(iso_date, category) when is_binary(iso_date) do
+  defp format_date(iso_date, category) do
     base =
-      case Date.from_iso8601(String.trim(iso_date)) do
+      case is_binary(iso_date) && Date.from_iso8601(String.trim(iso_date)) do
         {:ok, %Date{year: y, month: m, day: d}} ->
           "#{Enum.at(@months, m - 1)} #{d}, #{y}"
 
         _ ->
-          iso_date
+          if is_binary(iso_date) and String.trim(iso_date) != "", do: iso_date, else: nil
       end
 
-    if is_binary(category) and category != "" do
-      "#{base}  ·  #{category}"
-    else
-      base
+    cond do
+      base && is_binary(category) && category != "" -> "#{base}  ·  #{category}"
+      base -> base
+      is_binary(category) && category != "" -> category
+      true -> ""
     end
   end
-
-  defp format_date(_, _), do: ""
 
   defp format_meta(post) do
     parts =
@@ -284,3 +283,79 @@ Enum.each(posts, fn post_file ->
 
   IO.puts("Generated OG & X cards for #{id}: #{og_png_path} (#{:erlang.iolist_size(og_png)} bytes), #{x_png_path} (#{:erlang.iolist_size(x_png)} bytes)")
 end)
+
+# Static cards for the main blog pages (es, en, root)
+static_cards = [
+  %{
+    "id" => "blog-es",
+    "title" => "Blog de Dymmer",
+    "subtitle" => "Novedades, guías y notas de ingeniería sobre dominios, DNS y correo",
+    "date" => "",
+    "category" => "Dymmer Engineering",
+    "author" => "Dymmer",
+    "tags" => "Dominios · DNS · Email · Infraestructura"
+  },
+  %{
+    "id" => "blog-en",
+    "title" => "Dymmer Blog",
+    "subtitle" => "Domain registration, DNS management, and email infrastructure insights",
+    "date" => "",
+    "category" => "Dymmer Engineering",
+    "author" => "Dymmer",
+    "tags" => "Domains · DNS · Email · Infrastructure"
+  },
+  %{
+    "id" => "blog",
+    "title" => "Dymmer Blog",
+    "subtitle" => "Domain, DNS, Email & Cloud Infrastructure",
+    "date" => "",
+    "category" => "Dymmer Engineering",
+    "author" => "Dymmer",
+    "tags" => "Domains · DNS · Email · Infrastructure"
+  }
+]
+
+Enum.each(static_cards, fn card ->
+  id = card["id"]
+
+  og_svg = Dymmer.OgImage.generate_og(card, assets_dir)
+  {:ok, og_png} = Resvg.svg_string_to_png_buffer(og_svg, resvg_opts)
+  og_png_path = Path.join(og_dir, "#{id}.png")
+  File.write!(og_png_path, og_png)
+
+  x_svg = Dymmer.OgImage.generate_x(card, assets_dir)
+  {:ok, x_png} = Resvg.svg_string_to_png_buffer(x_svg, resvg_opts)
+  x_png_path = Path.join(x_dir, "#{id}.png")
+  File.write!(x_png_path, x_png)
+
+  IO.puts("Generated static OG & X cards for #{id}: #{og_png_path} (#{:erlang.iolist_size(og_png)} bytes), #{x_png_path} (#{:erlang.iolist_size(x_png)} bytes)")
+end)
+
+images_dir = Path.join(assets_dir, "images")
+cover_path = Path.join(images_dir, "dym_cover_512.png")
+
+unless File.exists?(cover_path) do
+  logo_icon_path = Path.join(images_dir, "logo_icon.png")
+  logo_icon_data = if File.exists?(logo_icon_path), do: "data:image/png;base64,#{Base.encode64(File.read!(logo_icon_path))}", else: ""
+
+  cover_svg = """
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" viewBox="0 0 512 512">
+    <defs>
+      <linearGradient id="cover_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0C192B"/>
+        <stop offset="100%" stop-color="#2563EB"/>
+      </linearGradient>
+    </defs>
+    <rect width="512" height="512" rx="48" fill="url(#cover_grad)"/>
+    <rect x="2" y="2" width="508" height="508" rx="46" fill="none" stroke="white" stroke-opacity="0.15" stroke-width="2"/>
+    #{if logo_icon_data != "", do: ~s(<image href="#{logo_icon_data}" x="156" y="110" width="200" height="200" preserveAspectRatio="xMidYMid meet"/>), else: ""}
+    <text x="256" y="375" font-family="Arial, Helvetica, Liberation Sans, DejaVu Sans, Ubuntu, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="4">DYMMER</text>
+    <text x="256" y="420" font-family="Arial, Helvetica, Liberation Sans, DejaVu Sans, Ubuntu, sans-serif" font-size="20" font-weight="bold" fill="#93C5FD" text-anchor="middle" letter-spacing="6">BLOG</text>
+  </svg>
+  """
+
+  {:ok, cover_png} = Resvg.svg_string_to_png_buffer(cover_svg, resvg_opts)
+  File.write!(cover_path, cover_png)
+  IO.puts("Generated fallback cover image: #{cover_path} (#{:erlang.iolist_size(cover_png)} bytes)")
+end
+

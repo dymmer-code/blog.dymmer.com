@@ -17,7 +17,21 @@
       }
     })();
   </script>
-  <title>Redirecting…</title>
+  <title>Dymmer Blog</title>
+  <meta name="description" content="Novedades, guías y notas de ingeniería sobre registro de dominios, gestión DNS y servicios web de Dymmer.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dymmer Blog">
+  <meta property="og:url" content="https://blog.dymmer.com/">
+  <meta property="og:title" content="Blog de Dymmer — Novedades, Guías y Artículos">
+  <meta property="og:description" content="Novedades, guías y notas de ingeniería sobre registro de dominios, gestión DNS y servicios web de Dymmer.">
+  <meta property="og:image" content="https://blog.dymmer.com/assets/og/blog-es.png">
+  <meta property="og:image:secure_url" content="https://blog.dymmer.com/assets/og/blog-es.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@altenwald">
+  <meta name="twitter:image" content="https://blog.dymmer.com/assets/x/blog-es.png">
 </head>
 <body>
   <p>Redirecting to <a href="/es/">/es/</a>...</p>
